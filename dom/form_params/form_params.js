@@ -1,5 +1,6 @@
 steal("jquery", function( $ ) {
 	var
+		converters = {},
 		// use to parse bracket notation like my[name][attribute]
 		keyBreaker = /[^\[\]]+/g,
 		// converts values that look like numbers and booleans and removes empty strings
@@ -148,8 +149,13 @@ steal("jquery", function( $ ) {
 				}
 
 				// Convert the value
-				if ( convert ) {
-					value = convertValue( value );
+				if (convert) {
+					converterKey = $this.data('convert');
+					if (converters[converterKey] !== undefined) {
+						value = converters[converterKey]['serializer'](value);
+					} else {
+						value = convertValue(value);
+					}
 				}
 
 				// Assign data recursively
@@ -158,6 +164,12 @@ steal("jquery", function( $ ) {
 			});
 
 			return data;
+		},
+		registerParamConverter: function (key, serializer, deserializer) {
+			converters[key] = {
+				'serializer': serializer, // To JSON
+				'deserializer': deserializer // To form data
+			};
 		}
 	});
 
