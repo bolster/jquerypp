@@ -171,14 +171,15 @@ steal("jquery", function( $ ) {
 			});
 
 			return data;
-		},
-		registerParamConverter: function (key, serializer, deserializer) {
-			converters[key] = {
-				'serializer': serializer, // To JSON
-				'deserializer': deserializer // To form data
-			};
 		}
 	});
+
+	$.registerParamConverter = function (options) {
+		converters[options.key] = {
+			'serializer': options.serializer, // To JSON
+			'deserializer': options.deserializer // To form data
+		};
+	};
 
 	return $;
 });

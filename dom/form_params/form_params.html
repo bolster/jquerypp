@@ -56,16 +56,17 @@ var update = function(){
 $('#fp').change(update);
 $('input[name="talk[peopleCount]"]').keyup(update);
 
-$().registerParamConverter('list',
-  function(x) {
+$.registerParamConverter({
+  'key': 'list',
+  serializer: function(x) {
     var values = x.split(",");
     values = _.map(values, function(s) { return String(s).replace(/^\s+|\s+$/g, ''); });
     return _.filter(values, function (y) { return y; })
   },
-  function (x) {
+  deserializer: function (x) {
     return x.join(",");
   }
-);
+});
 
 // show json right away
 update(); 
