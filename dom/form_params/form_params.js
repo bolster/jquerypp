@@ -99,10 +99,16 @@ steal("jquery", function( $ ) {
 			// Find all the inputs
 			this.find("[name]").each(function() {
 				var $this = $(this),
-					value = params[ $this.attr("name") ];
+					value = params[ $this.attr("name") ],
+					converterKey;
 				
 				// Don't do all this work if there's no value
 				if ( value !== undefined ) {
+
+					converterKey = $this.data('convert');
+					if (converters[converterKey] !== undefined) {
+						value = converters[converterKey]['deserializer'](value);
+					}
 					
 					// Nested these if statements for performance
 					if ( $this.is(":radio") ) {
@@ -135,7 +141,8 @@ steal("jquery", function( $ ) {
 					type     = $this.attr("type"),
 					name     = $this.attr("name"),
 					value    = $this.val(),
-					parts;
+					parts,
+					convertKey;
 
 				// Don't accumulate submit buttons and nameless elements
 				if ( type == "submit" || ! name ) {
