@@ -1,5 +1,4 @@
 .tmp*
-dist
 *.swp
 .DS_store
 *node_modules*
