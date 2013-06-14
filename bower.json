@@ -1,0 +1,7 @@
+{
+  "name" : "jquerypp",
+  "version": "1.0.1",
+  "main": [
+    "./dist/jquerypp.js"
+  ]
+}
