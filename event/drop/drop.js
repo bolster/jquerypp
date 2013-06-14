@@ -1,12 +1,14 @@
-steal('jquery', 'jquery/event/drag/core', 'jquery/dom/within', 'jquery/dom/compare', function($){
+steal('jquery', 'jquerypp/event/drag/core', 'jquerypp/dom/within', 'jquerypp/dom/compare', function($){
 	var event = $.event;
 	/**
 	 * @add jQuery.event.special
 	 */
 	var eventNames = [
 	/**
-	 * @attribute dropover
+	 * @function jQuery.event.special.dropover dropover
 	 * @parent jQuery.event.drop
+	 *
+	 * @body
 	 * 
 	 * `dropover` is triggered when a [jQuery.event.drag drag] is first moved onto this
 	 * drop element.
@@ -20,8 +22,10 @@ steal('jquery', 'jquery/event/drag/core', 'jquery/dom/within', 'jquery/dom/compa
 	 */
 	"dropover",
 	/**
-	 * @attribute dropon
+	 * @function jQuery.event.special.dropon dropon
 	 * @parent jQuery.event.drop
+	 *
+	 * @body
 	 * 
 	 * `dropon` is triggered when a drag is dropped on a drop element.
 	 * The event handler gets an instance of [jQuery.Drag] passed as the second and a
@@ -33,8 +37,10 @@ steal('jquery', 'jquery/event/drag/core', 'jquery/dom/within', 'jquery/dom/compa
 	 */
 	"dropon",
 	/**
-	 * @attribute dropout
+	 * @function jQuery.event.special.dropout dropout
 	 * @parent jQuery.event.drop
+	 *
+	 * @body
 	 * 
 	 * `dropout` is called when a drag is moved out of this drop element.
 	 * The event handler gets an instance of [jQuery.Drag] passed as the second and a
@@ -47,8 +53,10 @@ steal('jquery', 'jquery/event/drag/core', 'jquery/dom/within', 'jquery/dom/compa
 	 */
 	"dropout",
 	/**
-	 * @attribute dropinit
+	 * @function jQuery.event.special.dropinit dropinit
 	 * @parent jQuery.event.drop
+	 *
+	 * @body
 	 * 
 	 * `dropinit` is called when a drag motion starts and the drop elements are initialized.
 	 * The event handler gets an instance of [jQuery.Drag] passed as the second and a
@@ -64,8 +72,10 @@ steal('jquery', 'jquery/event/drag/core', 'jquery/dom/within', 'jquery/dom/compa
 	 */
 	"dropinit",
 	/**
-	 * @attribute dropmove
+	 * @function jQuery.event.special.dropmove dropmove
 	 * @parent jQuery.event.drop
+	 *
+	 * @body
 	 * 
 	 * `dropmove` is triggered repeatedly when a drag is moved over a drop
 	 * (similar to a mousemove).
@@ -78,8 +88,10 @@ steal('jquery', 'jquery/event/drag/core', 'jquery/dom/within', 'jquery/dom/compa
 	 */
 	"dropmove",
 	/**
-	 * @attribute dropend
+	 * @function jQuery.event.special.dropend dropend
 	 * @parent jQuery.event.drop
+	 *
+	 * @body
 	 * 
 	 * `dropend` is called when the drag motion is done for this drop element.
 	 * The event handler gets an instance of [jQuery.Drag] passed as the second and a
@@ -94,11 +106,11 @@ steal('jquery', 'jquery/event/drag/core', 'jquery/dom/within', 'jquery/dom/compa
 	"dropend"];
 	
 	/**
-	 * @class jQuery.Drop
+	 * @constructor jQuery.Drop
 	 * @parent jQuery.event.drop
-	 * @plugin jquery/event/drop
-	 * @download  http://jmvcsite.heroku.com/pluginify?plugins[]=jquery/event/drop/drop.js
-	 * @test jquery/event/drag/qunit.html
+	 * @plugin jquerypp/event/drop
+	 * @download  http://jmvcsite.heroku.com/pluginify?plugins[]=jquerypp/event/drop/drop.js
+	 * @test jquerypp/event/drag/qunit.html
 	 *
 	 * The `jQuery.Drop` constructor is never called directly but an instance is passed to the
 	 * to the `dropinit`, `dropover`, `dropmove`, `dropon`, and `dropend` event handlers as the
@@ -204,7 +216,7 @@ steal('jquery', 'jquery/event/drag/core', 'jquery/dom/within', 'jquery/dom/compa
 			responder.callHandlers(this.lowerName+'move',responder.element[0], event, mover)
 		},
 		/**
-		 * `$.Drop.compile()` gets all elements that are droppable and adds them to a list.
+		 * `jQuery.Drop.compile()` gets all elements that are droppable and adds them to a list.
 		 * 
 		 * This should be called if and when new drops are added to the page
 		 * during the motion of a single drag.

@@ -1,6 +1,5 @@
 steal("jquery", function( $ ) {
 	var
-		converters = {},
 		// use to parse bracket notation like my[name][attribute]
 		keyBreaker = /[^\[\]]+/g,
 		// converts values that look like numbers and booleans and removes empty strings
@@ -54,7 +53,7 @@ steal("jquery", function( $ ) {
 				} else {
 					data[ name ].push( value );
 				}
-				
+
 
 			}
 
@@ -63,8 +62,9 @@ steal("jquery", function( $ ) {
 	/**
 	 * @function jQuery.fn.formParams
 	 * @parent jQuery.formParams
-	 * @plugin jquery/dom/form_params
-	 * @test jquery/dom/form_params/qunit.html
+	 * @plugin jquerypp/dom/form_params
+	 * @test jquerypp/dom/form_params/qunit.html
+	 * @hide
 	 *
 	 * Returns a JavaScript object for values in a form.
 	 * It creates nested objects by using bracket notation in the form element name.
@@ -99,17 +99,11 @@ steal("jquery", function( $ ) {
 			// Find all the inputs
 			this.find("[name]").each(function() {
 				var $this = $(this),
-					value = params[ $this.attr("name") ],
-					converterKey;
-				
+					value = params[ $this.attr("name") ];
+
 				// Don't do all this work if there's no value
 				if ( value !== undefined ) {
 
-					converterKey = $this.data('convert');
-					if (converters[converterKey] !== undefined) {
-						value = converters[converterKey]['deserializer'](value);
-					}
-					
 					// Nested these if statements for performance
 					if ( $this.is(":radio") ) {
 						if ( $this.val() == value ) {
@@ -141,8 +135,7 @@ steal("jquery", function( $ ) {
 					type     = $this.attr("type"),
 					name     = $this.attr("name"),
 					value    = $this.val(),
-					parts,
-					convertKey;
+					parts;
 
 				// Don't accumulate submit buttons and nameless elements
 				if ( type == "submit" || ! name ) {
@@ -156,13 +149,8 @@ steal("jquery", function( $ ) {
 				}
 
 				// Convert the value
-				if (convert) {
-					converterKey = $this.data('convert');
-					if (converters[converterKey] !== undefined) {
-						value = converters[converterKey]['serializer'](value);
-					} else {
-						value = convertValue(value);
-					}
+				if ( convert ) {
+					value = convertValue( value );
 				}
 
 				// Assign data recursively
@@ -173,13 +161,6 @@ steal("jquery", function( $ ) {
 			return data;
 		}
 	});
-
-	$.registerParamConverter = function (options) {
-		converters[options.key] = {
-			'serializer': options.serializer, // To JSON
-			'deserializer': options.deserializer // To form data
-		};
-	};
 
 	return $;
 });

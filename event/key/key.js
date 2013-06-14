@@ -113,8 +113,8 @@ steal('jquery', function($){
 	
 	/**
 	 * @parent jQuery.event.key
-	 * @plugin jquery/event/key
-	 * @function jQuery.Event.prototype.keyName
+	 * @plugin jquerypp/event/key
+	 * @function $.Event.prototype.keyName $.Event.prototype.keyName
 	 *
 	 * Returns a string representation of the key pressed:
 	 *
