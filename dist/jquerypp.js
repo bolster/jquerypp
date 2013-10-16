@@ -835,14 +835,14 @@
 					// Nested these if statements for performance
 					if ($this.is(":radio")) {
 						if ($this.val() == value) {
-							$this.attr("checked", true);
+							$this.prop("checked", true);
 						}
 					} else if ($this.is(":checkbox")) {
 						// Convert single value to an array to reduce
 						// complexity
 						value = $.isArray(value) ? value : [value];
 						if ($.inArray($this.val(), value) > -1) {
-							$this.attr("checked", true);
+							$this.prop("checked", true);
 						}
 					} else {
 						$this.val(value);
