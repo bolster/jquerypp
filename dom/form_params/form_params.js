@@ -107,14 +107,14 @@ steal("jquery", function( $ ) {
 					// Nested these if statements for performance
 					if ( $this.is(":radio") ) {
 						if ( $this.val() == value ) {
-							$this.prop("checked", true);
+							$this.prop("checked", true).trigger('change');
 						}
 					} else if ( $this.is(":checkbox") ) {
 						// Convert single value to an array to reduce
 						// complexity
 						value = $.isArray( value ) ? value : [value];
 						if ( $.inArray( $this.val(), value ) > -1) {
-							$this.prop("checked", true);
+							$this.prop("checked", true).trigger('change');
 						}
 					} else {
 						$this.val( value );
